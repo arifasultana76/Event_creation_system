@@ -1,0 +1,61 @@
+{% extends 'master/base.html' %}
+
+{% block body %}
+
+        <!-- ===== TABLE CARD ===== -->
+        <div class="card">
+            <h2>Table View</h2>
+            <table>
+                <thead>
+                    <a href="{% url 'addevent' %}">Add Event</a>
+                    <tr>
+                        <th>ID</th>
+                        <th>event_title</th>
+                        <th>category</th>
+                        <th>description</th>
+                        <th>event_date</th>
+                        <th>status</th>
+                        <th>created_by</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for i in data %}
+                    
+                    
+                    {% comment %} {% if i.created_by == request.user or user.user_types == "Admin" %} {% endcomment %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{i.event_title}}</td>
+                        <td>{{i.category}}</td>
+                        <td>{{i.description}}</td>
+                        <td>{{i.event_date}}</td>
+                        <td>{{i.status}}</td>
+                        <td>{{i.created_by}}</td>
+                        <td>
+                            <a href="{% url 'view' i.id %}">View</a> 
+
+                            {% if user.user_types == "Creator" %}                   
+                            <a class=edit href="{% url 'editevent' i.id %}">Edit</a>
+                            <a class=delete href="{% url 'deleteevent' i.id %}">Delete</a>
+                            
+                            {% if i.status != "Completed" %}
+                            <a class=change-status href="{% url 'changestatus' i.id %}">changestatus</a>
+                            {% endif %}
+
+                            {% endif %}      
+                           
+                        </td>
+                    </tr>
+                    {% comment %} {% endif %} {% endcomment %}
+                   {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+
+    
+{% endblock body %}
+    

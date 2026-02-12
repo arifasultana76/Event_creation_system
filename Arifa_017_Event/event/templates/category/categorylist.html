@@ -1,0 +1,42 @@
+{% extends 'master/base.html' %}
+
+{% block body %}
+   <!-- ===== TABLE CARD ===== -->
+        <div class="card">
+            <h2>Table View</h2>
+            <table>
+                <a href="{% url 'addcate' %}">Add Category</a>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Category Name</th>
+                        
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for i in data %}
+                        
+                
+                        
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{i.name}}</td>
+                
+                        <td>
+                            <a href="#">View</a>
+                            <a href="{% url 'editcate' i.id %}">Edit</a>
+                            <a href="{% url 'deletecate' i.id %}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                 
+                </tbody>
+            </table>
+        </div>
+
+    
+{% endblock body %}
+
+    

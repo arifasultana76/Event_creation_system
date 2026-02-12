@@ -1,0 +1,62 @@
+{% extends 'master/base.html' %}
+
+{% block body %}
+
+<div class="welcome-container">
+
+    {% include "auth/messages.html" %}
+
+    <!-- HERO SECTION -->
+    <section class="welcome-hero">
+        <div class="hero-text">
+            <h1>
+                Welcome,
+                <span>{{ user.full_name|default:user.username }}</span>
+            </h1>
+
+            <p>
+                You are logged in as
+                <strong>{{ user.user_types }}</strong>.
+                Manage events, categories, and experiences — all in one place.
+            </p>
+        </div>
+
+        <div class="hero-profile">
+            {% if user.profile_image %}
+                <img src="{{ user.profile_image.url }}" alt="Profile">
+            {% else %}
+                <div class="profile-placeholder">
+                    {{ user.full_name|slice:":1"|upper }}
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- DASHBOARD CARDS -->
+    <section class="dashboard">
+
+        <div class="dash-card">
+            <h3>🎉 Events</h3>
+            <p>Create, manage & organize events seamlessly.</p>
+            <a href="{% url 'event' %}">View Events →</a>
+        </div>
+
+        {% if user.user_types == "Admin" %}
+        <div class="dash-card">
+            <h3>🗂 Categories</h3>
+            <p>Manage event categories & classifications.</p>
+            <a href="{% url 'category' %}">Manage Categories →</a>
+        </div>
+        {% endif %}
+
+        <div class="dash-card">
+            <h3>🔐 Security</h3>
+            <p>Update your password and keep your account secure.</p>
+            <a href="{% url 'changepassword' %}">Change Password →</a>
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock body %}

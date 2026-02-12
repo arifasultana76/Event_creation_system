@@ -1,0 +1,19 @@
+{% extends 'master/base.html' %}
+
+{% block body %}
+
+        <!-- ===== FORM CARD ===== -->
+        <div class="card">
+            <h2>Create / Edit Form</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{event_form.as_p}}
+                
+                <button class="btn btn-primary">Submit</button>
+                <button class="btn btn-secondary" type="reset">Cancel</button>
+            </form>
+        </div>
+
+    
+{% endblock body %}
+    

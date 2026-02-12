@@ -1,0 +1,19 @@
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+    <div class="logo">
+        <div class="logo-icon">E</div>
+        <span class="logo-text">Eventify</span>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="{% url 'home' %}">Dashboard</a></li>
+
+        {% if user.user_types == "Admin" %}
+        <li><a href="{% url 'category' %}">Category</a></li>
+        {% endif %}
+
+        <li><a href="{% url 'event' %}">Event</a></li>
+        <li><a href="{% url 'changepassword' %}">Change Password</a></li>
+        <li><a href="{% url 'logout' %}" class="logout-btn">Logout</a></li>
+    </ul>
+</nav>
