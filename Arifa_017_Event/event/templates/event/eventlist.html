@@ -10,12 +10,12 @@
                     <a href="{% url 'addevent' %}">Add Event</a>
                     <tr>
                         <th>ID</th>
-                        <th>event_title</th>
-                        <th>category</th>
-                        <th>description</th>
-                        <th>event_date</th>
-                        <th>status</th>
-                        <th>created_by</th>
+                        <th>Event title</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Event date</th>
+                        <th>Status</th>
+                        <th>Created by</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -36,15 +36,15 @@
                         <td>
                             <a href="{% url 'view' i.id %}">View</a> 
 
-                            {% if user.user_types == "Creator" %}                   
+                            {% comment %} {% if user.user_types == "Creator" %}                    {% endcomment %}
                             <a class=edit href="{% url 'editevent' i.id %}">Edit</a>
                             <a class=delete href="{% url 'deleteevent' i.id %}">Delete</a>
                             
-                            {% if i.status != "Completed" %}
+                            {% comment %} {% if i.status != "Completed" %} {% endcomment %}
                             <a class=change-status href="{% url 'changestatus' i.id %}">changestatus</a>
-                            {% endif %}
+                            {% comment %} {% endif %} {% endcomment %}
 
-                            {% endif %}      
+                            {% comment %} {% endif %}       {% endcomment %}
                            
                         </td>
                     </tr>

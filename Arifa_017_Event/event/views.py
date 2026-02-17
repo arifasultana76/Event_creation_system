@@ -119,7 +119,7 @@ def addeventPage(request):
             event=event_form.save(commit=False)
             event.created_by=request.user
             event.save()
-            return redirect('eventlist')
+            return redirect('event')
     return render(request, "event/addevent.html", context)
 
 def editeventPage(request, id):
@@ -135,12 +135,12 @@ def editeventPage(request, id):
             event=event_form.save(commit=False)
             event.created_by=request.user
             event.save()
-            return redirect('eventlist')
+            return redirect('event')
     return render(request, "event/editevent.html", context)
 
 def deleteeventPage(request, id):
     EventModel.objects.get(id=id).delete()
-    return redirect('eventlist')
+    return redirect('event')
 
 def ViewPage(request, id):
     data=EventModel.objects.get(id=id)
@@ -154,5 +154,5 @@ def changestatus(request, id):
     elif data.status == "InProgress":
         data.status = "Completed"
     data.save()
-    return redirect('eventlist')
+    return redirect('event')
 
