@@ -4,6 +4,338 @@
     <meta charset="UTF-8">
     <title>{% block title %}Eventify | Event Management{% endblock %}</title>
 
+<style>
+
+/* ===== RESET ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+/* ===== BODY ===== */
+body{
+    min-height:100vh;
+    background: linear-gradient(135deg,#4f46e5,#06b6d4,#3b82f6);
+    color:#ffffff;
+    overflow-x:hidden;
+    display:flex;
+    flex-direction:column;
+}
+
+/* ===== BACKGROUND ANIMATION ===== */
+.bg-animation{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+}
+
+.circle{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,0.25);
+    filter:blur(40px);
+    animation:float 10s infinite ease-in-out;
+}
+
+.circle:nth-child(1){
+    width:300px;height:300px;
+    top:8%;left:6%;
+}
+.circle:nth-child(2){
+    width:220px;height:220px;
+    bottom:12%;right:8%;
+}
+.circle:nth-child(3){
+    width:170px;height:170px;
+    top:50%;right:28%;
+}
+
+@keyframes float{
+    50%{transform:translateY(-40px) translateX(30px);}
+}
+
+/* ===== NAVBAR ===== */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 60px;
+    background:rgba(255,255,255,0.20);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(255,255,255,0.25);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo-icon{
+    width:40px;height:40px;
+    border-radius:10px;
+    background:linear-gradient(135deg,#ff7a18,#ffb347);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+.logo-text{
+    font-size:22px;
+    font-weight:600;
+    letter-spacing:1px;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:22px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#ffffff;
+    padding:6px 14px;
+    border-radius:8px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    background:rgba(255,255,255,0.35);
+    color:#1e3a8a;
+}
+
+.logout-btn{
+    background:linear-gradient(135deg,#ff416c,#ff4b2b);
+    border-radius:20px;
+}
+
+/* ===== MAIN CONTENT ===== */
+main{
+    flex:1;
+    padding:60px;
+}
+
+/* ===== FOOTER ===== */
+footer{
+    text-align:center;
+    padding:14px;
+    background:rgba(0,0,0,0.25);
+    font-size:14px;
+}
+
+/* ===== DJANGO MESSAGES ===== */
+.msg{
+    padding:14px 20px;
+    margin-bottom:15px;
+    border-radius:12px;
+    font-size:15px;
+    backdrop-filter:blur(10px);
+}
+
+.msg.success{
+    background:rgba(34,197,94,0.25);
+    border-left:5px solid #22c55e;
+}
+
+.msg.error,.msg.warning{
+    background:rgba(239,68,68,0.25);
+    border-left:5px solid #ef4444;
+}
+
+/* ===== CONTAINER ===== */
+.container{
+    max-width:1100px;
+    margin:auto;
+}
+
+/* ===== CARD ===== */
+.card{
+    background:rgba(255,255,255,0.22);
+    backdrop-filter:blur(18px);
+    border-radius:20px;
+    padding:28px;
+    box-shadow:0 25px 45px rgba(0,0,0,0.25);
+    animation:fadeIn .4s ease;
+}
+
+.card h2{
+    margin-bottom:20px;
+    font-size:24px;
+    color:#0f172a;
+}
+
+
+/* ===== TABLE ===== */
+.table-wrapper{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+/* header background */
+thead{
+    background:rgba(0,0,0,0.25);
+}
+
+/* table head */
+thead th{
+    padding:16px 14px;   /* vertical gap increase */
+    text-transform:uppercase;
+    font-size:13px;
+    letter-spacing:0.5px;  /* FIX: remove extra gap */
+    color:#ffffff;
+    text-align:left;
+}
+
+/* table body */
+tbody td{
+    padding:14px;
+    border-bottom:1px solid rgba(255,255,255,0.25);
+    color:#0f172a;
+    font-weight:500;
+}
+
+tbody tr:hover{
+    background:rgba(255,255,255,0.35);
+}
+
+
+/* ===== PROFILE IMAGE ===== */
+.profile-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ffb703;
+}
+
+.no-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+
+/* PROFILE */
+.hero-profile img,
+.profile-placeholder {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ffb703;
+}
+
+.profile-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+}
+
+
+/* ===== BADGE ===== */
+.badge{
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:13px;
+    background:linear-gradient(135deg,#2563eb,#06b6d4);
+    color:white;
+}
+
+/* ===== DASHBOARD ===== */
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+}
+
+.dash-card{
+    background:rgba(255,255,255,0.22);
+    backdrop-filter:blur(14px);
+    border-radius:18px;
+    padding:25px;
+    transition:.3s;
+}
+
+.dash-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 20px 40px rgba(0,0,0,0.25);
+}
+
+.dash-card h3{
+    margin-bottom:10px;
+    color:#0f172a;
+}
+
+.dash-card a{
+    color:#1d4ed8;
+    text-decoration:none;
+    font-weight:500;
+}
+
+.dash-card a:hover{
+    text-decoration:underline;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(15px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-animation">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+</div>
+
+{% include "master/nav.html" %}
+
+<main>
+    {% block body %}
+    {% endblock body %}
+</main>
+
+<footer>
+    © 2026 Eventify | Creating Moments, Managing Magic
+</footer>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Eventify | Event Management{% endblock %}</title>
+
     <style>
 /* ===== RESET ===== */
 * {
@@ -404,4 +736,4 @@ tbody td {
     </footer>
 
 </body>
-</html>
+</html> {% endcomment %}

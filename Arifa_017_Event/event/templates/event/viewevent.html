@@ -1,0 +1,65 @@
+{% extends 'master/base.html' %}
+
+{% block body %}
+
+<div class="card">
+    <h2>Event Details</h2>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Information</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>ID</td>
+                    <td>{{ data.id }}</td>
+                </tr>
+
+                <tr>
+                    <td>Event Title</td>
+                    <td>{{ data.event_title }}</td>
+                </tr>
+
+                <tr>
+                    <td>Category</td>
+                    <td>{{ data.category }}</td>
+                </tr>
+
+                <tr>
+                    <td>Description</td>
+                    <td>{{ data.description }}</td>
+                </tr>
+
+                <tr>
+                    <td>Event Date</td>
+                    <td>{{ data.event_date }}</td>
+                </tr>
+
+                <tr>
+                    <td>Status</td>
+                    <td>{{ data.status }}</td>
+                </tr>
+
+                <tr>
+                    <td>Created By</td>
+                    <td>{{ data.created_by }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+
+    <a class="edit" href="{% url 'editevent' data.id %}">Edit</a>
+    <a class="delete" href="{% url 'deleteevent' data.id %}">Delete</a>
+    <a class="change-status" href="{% url 'changestatus' data.id %}">Change Status</a>
+    <a href="{% url 'event' %}">← Back</a>
+
+</div>
+
+{% endblock body %}
